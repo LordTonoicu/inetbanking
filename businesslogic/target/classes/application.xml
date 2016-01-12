@@ -1,13 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
- 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		  http://www.springframework.org/schema/aop 
+		  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		  http://www.springframework.org/schema/context 
+		  http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		  http://www.springframework.org/schema/tx 
+		  http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
 	<context:component-scan base-package="inetbanking" />
-    <bean id="userDAO" class="inetbanking.dao.impl.UserDAOImpl" />
- 
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="packagesToScan" value="inetbanking.model" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<tx:annotation-driven />
+
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/inetbanking" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	
+	<bean id="userDAOBean" class="inetbanking.dao.impl.UserDAOImpl" />
+	<bean id="userServiceBean" class="inetbanking.services.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAOBean" />
+	</bean>
+	<bean id="userControllerBean" class="inetbanking.controllers.UserController">
+		<property name="userService" ref="userServiceBean" />
+	</bean>
+
+	<bean id="accountDAOBean" class="inetbanking.dao.impl.AccountDAOImpl" />
+	<bean id="accountServiceBean" class="inetbanking.services.impl.AccountServiceImpl">
+		<property name="accountDAO" ref="accountDAOBean" />
+	</bean>
+	<bean id="accountControllerBean" class="inetbanking.controllers.AccountController">
+		<property name="accountService" ref="accountServiceBean" />
+	</bean>
+	
+	<bean id="creditDAOBean" class="inetbanking.dao.impl.CreditDAOImpl" />
+	<bean id="creditServiceBean" class="inetbanking.services.impl.CreditServiceImpl">
+		<property name="creditDAO" ref="creditDAOBean" />
+	</bean>
+	<bean id="creditControllerBean" class="inetbanking.controllers.CreditController">
+		<property name="creditService" ref="creditServiceBean" />
+	</bean>
+	
+	<bean id="historyDAOBean" class="inetbanking.dao.impl.HistoryDAOImpl" />
+	<bean id="historyServiceBean" class="inetbanking.services.impl.HistoryServiceImpl">
+		<property name="historyDAO" ref="historyDAOBean" />
+	</bean>
+	<bean id="historyControllerBean" class="inetbanking.controllers.HistoryController">
+		<property name="historyService" ref="historyServiceBean" />
+	</bean>
+	
+	<bean id="tranzactionDAOBean" class="inetbanking.dao.impl.TranzactionDAOImpl" />
+	<bean id="tranzactionServiceBean" class="inetbanking.services.impl.TranzactionServiceImpl">
+		<property name="tranzactionDAO" ref="tranzactionDAOBean" />
+	</bean>
+	<bean id="tranzactionControllerBean" class="inetbanking.controllers.TranzactionController">
+		<property name="tranzactionService" ref="tranzactionServiceBean" />
+	</bean>
 </beans>

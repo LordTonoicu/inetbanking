@@ -1,13 +1,15 @@
 package inetbanking.dao.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
-
 import inetbanking.dao.CRUDDAO;
 import inetbanking.model.BaseEntity;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.transaction.annotation.Transactional;
+
 public class BaseDAO<Entity extends BaseEntity,I> implements CRUDDAO<Entity, I> {
-	@PersistenceUnit(unitName="hibernateProvider")
+	@PersistenceContext
 	private EntityManager entityManager;
 	private Class<Entity> thiz;
 	
@@ -16,18 +18,19 @@ public class BaseDAO<Entity extends BaseEntity,I> implements CRUDDAO<Entity, I> 
 		this.thiz = thiz;
 	}
 
+	@Transactional
 	public Entity save(Entity e) {
 		return entityManager.merge(e);
 	}
-
+	@Transactional
 	public Entity update(Entity e) {
 		return entityManager.merge(e);
 	}
-
+	@Transactional
 	public void delete(Entity e) {
 		entityManager.remove(e);
 	}
-
+	@Transactional
 	public Entity getById(I id) {
 		return entityManager.find(thiz, id);
 	}

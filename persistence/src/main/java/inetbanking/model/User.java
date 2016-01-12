@@ -1,9 +1,11 @@
 package inetbanking.model;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @SuppressWarnings("serial")
+@Entity
 public class User extends BaseEntity {
 
 	private String username;
@@ -14,6 +16,9 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private UserType type;
 	
+	public User() {
+		super();
+	}
 	public User(String username, String password, String email, String firstName,
 			String lastName, UserType type){
 		this(null,false,username,password,email,firstName,lastName,type);
