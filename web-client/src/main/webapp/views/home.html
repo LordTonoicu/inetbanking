@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<hr>
+<div class="row">
+    <div class="col-sm-8">
+        <h2>Welcome {{user.username}}!</h2>
+        <p>This is a quick view of your recent account history. In the right side you can see your accounts and their balance.  </p>
 
-</body>
-</html>
+		<h3>History</h3>
+    </div>
+    <div class="col-sm-4">
+        <h3>Account info:</h3>
+        <strong>Balance:</strong> <span>{{balance}}</span> <br>
+        <strong>Currency:</strong> <span>{currency}}</span> <br>
+    </div>
+</div>

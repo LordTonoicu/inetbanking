@@ -2,6 +2,7 @@ package inetbanking.services.impl;
 
 import inetbanking.dao.CRUDDAO;
 import inetbanking.model.BaseEntity;
+import inetbanking.model.User;
 import inetbanking.services.CRUDService;
 
 public class BaseService<Entity extends BaseEntity, I> implements CRUDService<Entity, I>{

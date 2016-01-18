@@ -1,0 +1,19 @@
+<div class="row" id="container">
+	<div class="col-md-4"></div>
+	
+	<div class="col-md-4">
+		<section class="login-form">
+        	<h2>Login to iNetBanking</h2>
+			<br>
+			<input type="text" placeholder="Username" required class="form-control input-lg" ng-model="user.username"/>
+			<br>
+			<input type="password" class="form-control input-lg" placeholder="Password" required ng-model="user.password" />
+			<br>
+			<button class="btn btn-lg btn-primary btn-block" ng-click="login(user)">Sign in</button>
+			<br>
+			<div>
+				<span>or</span> <a href="#!/createaccount">Create account</a>
+			</div>
+     	 </section>  
+	</div>
+</div>

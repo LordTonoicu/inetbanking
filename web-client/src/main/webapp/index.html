@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-module="iNetBanking">
+<html lang="en" ng-app="iNetBanking">
 
 <head>
 
@@ -50,12 +50,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">iNetBanking</a>
+                <a class="navbar-brand" href="#!/index">iNetBanking</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Account</a>
+                        <a href="#!/account">Account</a>
                     </li>
                     <li>
                         <a href="#">Credits</a>
@@ -71,29 +71,13 @@
     </nav>
 
     <!-- Page Content -->
+    <div ng-view class="container">
+
+    </div>
+    
     <div class="container">
-
+    
         <hr>
-
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>Welcome {{user}}!</h2>
-                <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
-                <p>
-                    <a class="btn btn-default btn-lg" href="#">Call to Action &raquo;</a>
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <h3>Account info:</h3>
-                <strong>Balance:</strong> <span>{{balance}}</span> <br>
-                <strong>Currency:</strong> <span>{currency}}</span> <br>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -103,7 +87,6 @@
             </div>
             <!-- /.row -->
         </footer>
-
     </div>
     <!-- /.container -->
 
@@ -119,6 +102,9 @@
 	<script src="js/angular-resource-1.2.3.js"></script>
 	<script src="js/angular-route-1.2.3.js"></script>
 	<script src="src/main.js"></script>
+	<script src="src/resources.js"></script>
+	<script src="src/statelessrepo.js"></script>
+	<script src="src/usercontroller.js"></script>
 </body>
 
 </html>

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class BaseDAO<Entity extends BaseEntity,I> implements CRUDDAO<Entity, I> {
 	@PersistenceContext
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	private Class<Entity> thiz;
 	
 	public BaseDAO(Class<Entity> thiz) {

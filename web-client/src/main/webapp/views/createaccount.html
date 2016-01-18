@@ -1,0 +1,24 @@
+<div class="row" id="container">
+	<div class="col-md-4"></div>
+	
+	<div class="col-md-4">
+		<section class="login-form">
+        	<h2>Create Account</h2>
+			<br>
+			<input type="text" placeholder="Username" required class="form-control input-lg" ng-model="user.username"/>
+			<br>
+			<input type="password" class="form-control input-lg" placeholder="Password" required ng-model="user.password" />
+			<br>
+			<input type="password" class="form-control input-lg" placeholder="Confirm password" required ng-model="repeatPassword" />
+			<br>
+			<input type="text" placeholder="Email" required class="form-control input-lg" ng-model="user.email"/>
+			<br>
+			<input type="text" placeholder="First Name" required class="form-control input-lg" ng-model="user.firstName"/>
+			<br>
+			<input type="text" placeholder="Username" required class="form-control input-lg" ng-model="user.lastName"/>
+			<br>
+			<button class="btn btn-lg btn-primary btn-block" ng-click="save(user,goToLoginPage);">Create</button>
+			<br>
+     	 </section>  
+	</div>
+</div>

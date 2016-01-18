@@ -1,13 +1,24 @@
 package inetbanking.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @SuppressWarnings("serial")
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
+	@Column(unique=true)
 	private String username;
 	private String password;
 	private String email;
@@ -37,12 +48,14 @@ public class User extends BaseEntity {
 		this.lastName = lastName;
 		this.type = type;
 	}
+	@Override
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -72,6 +85,34 @@ public class User extends BaseEntity {
 	}
 	public void setType(UserType type) {
 		this.type = type;
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		UserType type = this.getType();
+
+		if (type == null) {
+			return Collections.emptyList();
+		}
+
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(type.toString()));
+		return authorities;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 	
 	
