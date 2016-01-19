@@ -8,6 +8,7 @@ import inetbanking.util.TokenUtils;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -32,10 +33,10 @@ public class UserController {
 		this.userService = userService;
 	}
 	@GET
+	@Path("/user/{username}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public String helloWorld(){
-		userService.save(new User("antoniu","antoniu","antoniu","antoniu","Ienciu",UserType.ADMIN));
-		return "Heeey";
+	public User getByUsername(@PathParam("username")String username){
+		return userService.getByUsername(username);
 	}
 	@POST
 	@Path("/authenticate")

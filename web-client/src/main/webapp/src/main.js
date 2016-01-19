@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module('iNetBanking', ['ngRoute', 'ngCookies', 'iNetBanking.resources'])
+angular.module('iNetBanking', ['ngRoute', 'ngCookies', 'iNetBanking.resources','datatables'])
 	.config(
 		[ '$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 				
@@ -15,10 +15,16 @@ angular.module('iNetBanking', ['ngRoute', 'ngCookies', 'iNetBanking.resources'])
 			});
 			
 			$routeProvider.when('/index', {
-				templateUrl: 'views/home.html'
+				templateUrl: 'views/home.html',
+				controller: HomeController
+			});
+			$routeProvider.when('/accounts', {
+				templateUrl: 'views/accounts.html',
+				controller: AccountController
 			});
 			$routeProvider.when('/', {
-				templateUrl: 'views/home.html'
+				templateUrl: 'views/home.html',
+				controller: HomeController
 			});
 			$locationProvider.hashPrefix('!');
 			/* Register error provider that shows message on failed requests or redirects to login page on
@@ -33,9 +39,10 @@ angular.module('iNetBanking', ['ngRoute', 'ngCookies', 'iNetBanking.resources'])
 			      
 			        		if (status == 401) {
 			        			$location.path( "/login" );
-			        		} else {
-			        			$rootScope.error = method + " on " + url + " failed with status " + status;
-			        		}
+			        		}  
+			        		else if (status = 500) {
+			        	        $rootScope.error = rejection.data;
+			      	      	}
 			        		return $q.reject(rejection);
 			        	}
 			        };
@@ -56,13 +63,19 @@ angular.module('iNetBanking', ['ngRoute', 'ngCookies', 'iNetBanking.resources'])
 		    );
 			}
 		]
-	).run(function($rootScope, $location, $cookieStore) {
+	).run(function(DTOptionsBuilder,$rootScope, $location, $cookieStore) {
 			
 		/* Reset error when a new view is loaded */
 		$rootScope.$on('$viewContentLoaded', function() {
 			delete $rootScope.error;
 		});
-		
+		$rootScope.dtOptions = DTOptionsBuilder.newOptions();
+		$rootScope.userisType = function(type) {
+			if($rootScope.user) {
+				return $rootScope.user.type == type;
+			}
+			return false;
+		}
 		$rootScope.goToLoginPage = function() {
 			$location.path("login");
 		}

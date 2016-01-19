@@ -2,6 +2,7 @@ package inetbanking.services.impl;
 
 import inetbanking.dao.UserDAO;
 import inetbanking.model.User;
+import inetbanking.model.UserType;
 import inetbanking.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,10 @@ public class UserServiceImpl extends BaseService<User, Long> implements UserServ
 
 	@Override
 	public User getByUsername(String username) {
-		return userDAO.getByUsername(username);
-		
+		User u = userDAO.getByUsername(username);
+		if(u!=null)
+			u.setPassword("");
+		return u;
 	}
 	@Override
 	public User save(User e) {
@@ -39,6 +42,10 @@ public class UserServiceImpl extends BaseService<User, Long> implements UserServ
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		return userDAO.getByUsername(username);
+		User u = userDAO.getByUsername(username);
+		if(u == null) {
+			throw new UsernameNotFoundException("User with specified username does not exist!");
+		}
+		return u;
 	}
 }

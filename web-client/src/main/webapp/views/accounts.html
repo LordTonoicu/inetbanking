@@ -1,0 +1,52 @@
+<h3>Accounts</h3>
+
+<div class="container-fluid">
+	<div class="row">
+		<table datatable="ng" dt-options="dtOptions" class="table table-stripped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Currency</th>
+					<th>Balance</th>
+					<th>Creation Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="account in elementList">
+					<td>{{account.currency}}</td>
+					<td>{{account.balance}}</td>
+					<td>{{account.creationDate}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<button data-toggle="modal" data-target="#accountModal" class="btn btn-primary"><i  class="glyphicon glyphicon-plus"></i> Add new account</button>
+	</div>
+</div>
+
+<div id="accountModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		    <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Account</h4>
+		    </div>
+		    <div class="modal-body">
+				<div class="form-group">
+					<label>Currency</label>
+					<input name="name" required ng-model="account.currency" class="form-control" />
+				</div>
+		    </div>
+		    <div class="modal-footer">
+				<button type="button" ng-click="save()" data-dismiss="modal" class="btn btn-primary" >
+					<i class="glyphicon glyphicon-floppy-disk"></i>
+					<span>Save</span>
+				</button>
+		      	<button type="button" class="btn btn-default" data-dismiss="modal" >
+					<span>Close</span>
+				</button>
+		    </div>
+		</div>
+	</div>
+</div>

@@ -1,5 +1,7 @@
 package inetbanking.services.impl;
 
+import java.util.List;
+
 import inetbanking.dao.CRUDDAO;
 import inetbanking.model.BaseEntity;
 import inetbanking.model.User;
@@ -8,7 +10,6 @@ import inetbanking.services.CRUDService;
 public class BaseService<Entity extends BaseEntity, I> implements CRUDService<Entity, I>{
 
 	protected CRUDDAO<Entity,I> dao;
-	
 	public void setDao(CRUDDAO<Entity,I> dao) {
 		this.dao = dao;
 	}
@@ -27,6 +28,11 @@ public class BaseService<Entity extends BaseEntity, I> implements CRUDService<En
 
 	public Entity getById(I id) {
 		return dao.getById(id);
+	}
+
+	@Override
+	public List<Entity> getAll() {
+		return dao.getAll();
 	}
 
 

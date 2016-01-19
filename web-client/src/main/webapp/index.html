@@ -53,15 +53,20 @@
                 <a class="navbar-brand" href="#!/index">iNetBanking</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#!/account">Account</a>
+                <ul class="nav navbar-nav navbar-left">
+                    <li ng-show="$root.user">
+                        <a href="#!/accounts">Accounts</a>
                     </li>
-                    <li>
+                    <li ng-show="$root.user">
                         <a href="#">Credits</a>
                     </li>
-                    <li>
+                    <li ng-show="$root.user">
                         <a href="#">Tranzactions</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                	<li ng-show="$root.user">
+                        <a href="logout()">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +74,11 @@
         </div>
         <!-- /.container -->
     </nav>
-
+    <div class="container">
+		<div class="alert alert-danger" ng-show="$root.error" role="alert">{{$root.error}}</div>
+		<div class="alert alert-success" ng-show="$root.success" role="alert">{{$root.success}}</div>
+		<div class="alert alert-info" ng-show="$root.info" role="alert">{{$root.info}}</div>
+	</div>
     <!-- Page Content -->
     <div ng-view class="container">
 
@@ -101,10 +110,16 @@
 	<script src="js/angular-cookies-1.2.3.js"></script>
 	<script src="js/angular-resource-1.2.3.js"></script>
 	<script src="js/angular-route-1.2.3.js"></script>
+	<script	src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script src="js/angular-datatables.js"></script>
+	<!-- Angular Controllers and Configuration -->
 	<script src="src/main.js"></script>
 	<script src="src/resources.js"></script>
+	<script src="src/statefullrepo.js"></script>
 	<script src="src/statelessrepo.js"></script>
 	<script src="src/usercontroller.js"></script>
+	<script src="src/homecontroller.js"></script>
+	<script src="src/accountcontroller.js"></script>
 </body>
 
 </html>

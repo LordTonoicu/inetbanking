@@ -1,5 +1,7 @@
 package inetbanking.dao.impl;
 
+import java.util.List;
+
 import inetbanking.dao.CRUDDAO;
 import inetbanking.model.BaseEntity;
 
@@ -33,6 +35,11 @@ public class BaseDAO<Entity extends BaseEntity,I> implements CRUDDAO<Entity, I> 
 	@Transactional
 	public Entity getById(I id) {
 		return entityManager.find(thiz, id);
+	}
+
+	@Transactional
+	public List<Entity> getAll() {
+		return  entityManager.createQuery("Select t from " + thiz.getSimpleName() + " t").getResultList();
 	}
 
 	

@@ -2,13 +2,20 @@
 <div class="row">
     <div class="col-sm-8">
         <h2>Welcome {{user.username}}!</h2>
-        <p>This is a quick view of your recent account history. In the right side you can see your accounts and their balance.  </p>
+        <p>This is a quick view of your recent back accounts history. In the right side you can see all your bank accounts and their balance.  </p>
 
 		<h3>History</h3>
+		<div ng-repeat="history in histories">
+			
+		</div>
+		 <div ng-hide="histories || histories.length!=0">No data yet!</div>
     </div>
     <div class="col-sm-4">
-        <h3>Account info:</h3>
-        <strong>Balance:</strong> <span>{{balance}}</span> <br>
-        <strong>Currency:</strong> <span>{currency}}</span> <br>
+        <h3>Accounts info:</h3>
+        <div ng-repeat="account in accounts">
+	        <strong>Balance:</strong> <span>{{account.balance}}</span> <br>
+	        <strong>Currency:</strong> <span>{{account.currency}}</span> <br> <br>
+        </div>
+        <div ng-hide="accounts || accounts.length!=0">No data yet!</div>
     </div>
 </div>
