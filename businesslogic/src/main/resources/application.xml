@@ -98,4 +98,19 @@
 			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
+	<security:http
+			realm="Protected API"
+			use-expressions="true"
+			auto-config="false"
+			create-session="stateless"
+			entry-point-ref="unauthorizedEntryPoint"
+			authentication-manager-ref="authenticationManager">
+		<security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
+		<security:intercept-url pattern="/users/authenticate" access="permitAll" />
+	</security:http>
+	<bean id="unauthorizedEntryPoint" class="inetbanking.util.UnauthorizedEntryPoint" />
+	
+	<bean class="inetbanking.util.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
+		<constructor-arg ref="userServiceBean" />
+	</bean>
 </beans>

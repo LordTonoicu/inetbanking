@@ -28,7 +28,8 @@ public class AccountServiceImpl extends BaseService<Account,Long> implements Acc
 	}
 	@Override
 	public List<Account> getAll(){
-		User u = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//TODO: find a better way to do this!
+		User u = new User();
 		if(u!=null) {
 			if(u.getType()!=null && u.getType()!=UserType.CLIENT)
 				return dao.getAll();
@@ -37,5 +38,10 @@ public class AccountServiceImpl extends BaseService<Account,Long> implements Acc
 		} 
 		throw new BusinessException("User not logged!");
 		
+	}
+	@Override
+	public Account save(Account newAccount){
+		newAccount.setStatus("AWAITING_APPROVAL");
+		return accountDAO.save(newAccount);
 	}
 }

@@ -14,10 +14,17 @@ public class Account extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	private CurrencyType currency;
+	private String status;
 	Long balance;
 	Timestamp creationDate;
 	@ManyToOne(fetch=FetchType.LAZY)
 	User user;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public CurrencyType getCurrency() {
 		return currency;
 	}
